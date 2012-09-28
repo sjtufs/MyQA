@@ -1,0 +1,51 @@
+<?php include('./includes/header.html') ?>
+
+<head>
+<title>Answers</title>
+</head>
+
+
+<?php
+require_once ('./mysql_connect.php');
+$query="SELECT answer_id as aid, a_votes as votes, DATE_FORMAT(answertime,'%M %d, %Y') as dr,answer_content as content,father_id as fid From answers
+ ORDER BY a_votes DESC";
+$result=@mysql_query($query);
+$num = mysql_num_rows($result);
+
+
+if ($num > 0) {
+
+	echo '<p>
+	<table align="center" cellspacing="50">
+	<td><br>There are currently <i><b>'. $num.' </b></i>answers.</p></td>';
+
+	
+	echo '<table align="center" cellspacing="0" cellpadding="5">
+	<tr><td align="left"><b>Votes</b></td>
+	<td align="left">	</td>
+	<td align="left"><b>Content</b></td>
+	<td align="left"><b>answer Date</b></td></tr>';
+	
+
+	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		echo '<tr><td align="left"><font size="10">' . $row['votes'] . '</font></td>
+		<td align="left">
+
+		<a href="qa_q_detail.php?id=' . $row['fid'] . '" title="View Detial and Answers">?</a>
+		<input type="hidden" name="submitted" value="TRUE" />
+		</td>
+		<td align="left">' . $row['content'] . '</td>
+		<td align="left">' . $row['dr'] . '</td></tr>';
+		
+		}
+	
+	echo '</table>';	
+	mysql_free_result ($result); // Free up the resources.	
+}
+else {
+	echo '<p class="error">There are currently no questions.</p>';
+}
+
+mysql_close(); 
+include('./includes/footer.html');
+?>

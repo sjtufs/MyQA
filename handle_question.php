@@ -1,0 +1,22 @@
+<title>Asking</title>
+<style type="text/css">
+	p.margin {margin: 0cm 4cm 0cm 4cm}
+</style>
+<?php include('./includes/header.html');?>
+
+<?php
+$content=$_POST['question'];
+require_once('./mysql_connect.php');
+$query="INSERT INTO questions (question_content,q_votes,asktime)VALUES('$content' , '0' , NOW())";
+$result=@mysql_query($query);
+?>
+
+<p align="center"><font size="5">Successful!</font></p>
+<p align="center">Your question is:</p>
+<?php echo '<i><p align="center" class="margin">'.$_POST['question'].'</p></i>' ?>
+<br><br>
+<form action="./qa_questions.php" method="post">
+<div align="center"><input type="submit" name="submit" value="Go to Question" /></div>
+</form>
+<?php include('./includes/footer.html'); ?>
+

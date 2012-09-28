@@ -1,0 +1,6 @@
+<title>Asking</title>
+<?php include('./header.html');?>
+<p align="center"><font size="5">Successful!</font></p>
+<p align="center">Your question is:</p>
+<?php echo '<i>'.$_POST['question'].'</i>' ?>
+<?php include('./footer.html'); ?>
